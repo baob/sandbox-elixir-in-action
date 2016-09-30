@@ -23,10 +23,12 @@ defmodule Streams do
     file_stream!(path)
     |> Stream.map(&{String.length(&1), &1})
     |> Enum.reduce({0, ''}, &max(&1, &2))
+    |> elem(1)
   end
 
   def words_per_line!(path) do
     file_stream!(path)
-    |> Enum.map(&length(String.split(&1)))
+    |> Stream.map(&String.split(&1))
+    |> Enum.map(&length(&1))
   end
 end
