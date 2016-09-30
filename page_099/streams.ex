@@ -19,4 +19,9 @@ defmodule Streams do
     File.stream!(path)
     |> Enum.reduce({0, ''}, &max({String.length(&1), &1}, &2))
   end
+
+  def words_per_line!(path) do
+    File.stream!(path)
+    |> Enum.map(&length(String.split(&1)))
+  end
 end
