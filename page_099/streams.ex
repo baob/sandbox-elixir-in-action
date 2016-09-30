@@ -11,24 +11,25 @@ defmodule Streams do
 
   def lines_lengths!(path) do
     file_stream!(path)
-    |> Enum.map(&String.length(&1))
+    |> Enum.map(&String.length/1)
   end
 
   def longest_line_length!(path) do
     file_stream!(path)
-    |> Enum.reduce(0, &max(String.length(&1), &2))
+    |> Stream.map(&String.length/1)
+    |> Enum.reduce(0, &max/2)
   end
 
   def longest_line!(path) do
     file_stream!(path)
     |> Stream.map(&{String.length(&1), &1})
-    |> Enum.reduce({0, ''}, &max(&1, &2))
+    |> Enum.reduce({0, ''}, &max/2)
     |> elem(1)
   end
 
   def words_per_line!(path) do
     file_stream!(path)
-    |> Stream.map(&String.split(&1))
-    |> Enum.map(&length(&1))
+    |> Stream.map(&String.split/1)
+    |> Enum.map(&length/1)
   end
 end
