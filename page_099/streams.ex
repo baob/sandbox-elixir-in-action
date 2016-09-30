@@ -14,4 +14,9 @@ defmodule Streams do
     File.stream!(path)
     |> Enum.reduce(0, &max(String.length(&1), &2))
   end
+
+  def longest_line!(path) do
+    File.stream!(path)
+    |> Enum.reduce({0, ''}, &max({String.length(&1), &1}, &2))
+  end
 end
