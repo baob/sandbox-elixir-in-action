@@ -9,4 +9,9 @@ defmodule Streams do
     File.stream!(path)
     |> Enum.map(&String.length(&1))
   end
+
+  def longest_line_length!(path) do
+    File.stream!(path)
+    |> Enum.reduce(0, &max(String.length(&1), &2))
+  end
 end
